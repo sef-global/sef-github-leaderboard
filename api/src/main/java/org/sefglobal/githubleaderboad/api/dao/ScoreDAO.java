@@ -1,10 +1,14 @@
 package org.sefglobal.githubleaderboad.api.dao;
 
-import org.sefglobal.githubleaderboad.api.beans.UserWithPoints;
+import java.sql.PreparedStatement;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.sefglobal.githubleaderboad.api.beans.PaginatedResult;
 import org.sefglobal.githubleaderboad.api.beans.PaginatedScoreResult;
 import org.sefglobal.githubleaderboad.api.beans.Score;
-import org.sefglobal.githubleaderboad.api.exception.BadRequestException;
+import org.sefglobal.githubleaderboad.api.beans.UserWithPoints;
 import org.sefglobal.githubleaderboad.api.exception.ResourceNotFoundException;
 import org.sefglobal.githubleaderboad.api.util.BeanUtil;
 import org.slf4j.Logger;
@@ -15,12 +19,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-
-import java.sql.PreparedStatement;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Repository
 public class ScoreDAO {

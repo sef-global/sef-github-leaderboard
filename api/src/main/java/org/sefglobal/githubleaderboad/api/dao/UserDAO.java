@@ -1,19 +1,15 @@
 package org.sefglobal.githubleaderboad.api.dao;
 
+import java.sql.PreparedStatement;
 import org.sefglobal.githubleaderboad.api.beans.User;
 import org.sefglobal.githubleaderboad.api.exception.BadRequestException;
-import org.sefglobal.githubleaderboad.api.exception.ResourceNotFoundException;
 import org.sefglobal.githubleaderboad.api.util.BeanUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-
-import java.sql.PreparedStatement;
 
 @Repository
 public class UserDAO {

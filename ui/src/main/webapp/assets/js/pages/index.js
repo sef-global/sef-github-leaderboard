@@ -2,29 +2,11 @@ let tblScoreHistory = null;
 
 $(function () {
     loadNavAndFooter('assets/content/static');  //relative path to content directory
-
-    const boardId = getUrlParameter("board");
-
-    if (boardId === undefined) {
-        $("#main-header").html($("#template-404").html());
-    } else {
-        loadMainHeader(boardId);
-
-    }
+    loadLeaderBoard();
 });
 
-function loadMainHeader(boardId) {
-    const url = window.location.origin + "/invoker/open/api/giraffe/v1/boards/" + boardId;
-    const template = $("#template-main-header");
-    const target = $("#main-header");
-    renderData(template, url, target, false, null,(data, textStatus, jqXHR) => {
-        loadLeaderBoard(boardId);
-    });
-
-}
-
-function loadLeaderBoard(boardId) {
-    const url = window.location.origin + `/invoker/open/api/giraffe/v1/boards/${boardId}/scores`;
+function loadLeaderBoard() {
+    const url = window.location.origin + `/api/github-leaderboad/v1/scores`;
     const table = $('#example').DataTable({
         "processing": true,
         "serverSide": true,
@@ -54,15 +36,15 @@ function loadLeaderBoard(boardId) {
         },
         "columns": [
             {
-                "mData": "name",
+                "mData": "username",
                 "mRender": function (data, type, row) {
                     return '<span>' +
-                        '<img src="'+row.image+'" alt="Circle image" class="img-fluid rounded-circle profile-image" >' +
+                        '<img src="'+row.image+'&s=100" alt="Circle image" class="img-fluid rounded-circle profile-image" >' +
                             // row.name +
                         '</span>';
                 }
             },
-            {"data": "name"},
+            {"data": "username"},
             {"data": "rank"},
             {"data": "points"}
         ]
@@ -77,7 +59,7 @@ function loadLeaderBoard(boardId) {
 }
 
 function loadScoreHistory(entityId) {
-    const url = window.location.origin + `/invoker/open/api/giraffe/v1/entities/${entityId}/scores`;
+    const url = window.location.origin + `/api/github-leaderboad/v1/users/${entityId}/scores`;
     if(tblScoreHistory != null){
         tblScoreHistory.destroy();
     }
@@ -116,11 +98,10 @@ function loadScoreHistory(entityId) {
                     return moment.unix(data).format("YYYY-MM-DD HH:mm");
                 }
             },
-            {"data": "points"},
             {
-                "mData": "description",
+                "mData": "prUrl",
                 "mRender": function (data, type, row) {
-                    return convertPlainTextToHyperLinks(data);
+                    return '<a target="_blank" href="'+data+'">'+data+'</a>';
                 }
             }
         ]
