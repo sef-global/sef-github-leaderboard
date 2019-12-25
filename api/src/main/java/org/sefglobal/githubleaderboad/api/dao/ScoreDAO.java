@@ -137,7 +137,7 @@ public class ScoreDAO {
     public PaginatedResult getPaginatedUsersWithPoints(int limit, int offset) throws ResourceNotFoundException {
         String sqlQuery = "" +
                 "SELECT " +
-                "    COUNT(DISTINCT (u.id)) as count " +
+                "    COUNT(DISTINCT (u.id)) as `count` " +
                 "FROM " +
                 "       user u " +
                 "   INNER JOIN " +

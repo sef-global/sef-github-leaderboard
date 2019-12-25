@@ -25,11 +25,11 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 SET character_set_client = utf8mb4 ;
 CREATE TABLE `user` (
-                          `id` int(11) NOT NULL AUTO_INCREMENT,
-                          `username` varchar(100) NOT NULL,
-                          `image` varchar(250) NOT NULL,
-                          `url` varchar(250) NOT NULL,
-                          PRIMARY KEY (`id`)
+                        `id` int(11) NOT NULL,
+                        `username` varchar(100) NOT NULL,
+                        `image` varchar(250) NOT NULL,
+                        `url` varchar(250) NOT NULL,
+                        PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

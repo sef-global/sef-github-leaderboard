@@ -22,7 +22,7 @@ public class BeanUtil {
         Score score = new Score();
 
         score.setId(resultSet.getInt("id"));
-        score.setUserId(resultSet.getInt("entity_id"));
+        score.setUserId(resultSet.getInt("user_id"));
         score.setPrUrl(resultSet.getString("pr_url"));
         score.setCreatedAt(resultSet.getInt("created_at"));
 

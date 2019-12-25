@@ -24,16 +24,10 @@ public class ScoreManagementAPI {
 
     @GetMapping("/scores")
     public PaginatedResult getBoardLeaderBoard(
-            @PathVariable int boardId,
             @RequestParam int limit,
             @RequestParam int offset
     ) throws ResourceNotFoundException {
         return scoreDAO.getPaginatedUsersWithPoints(limit,offset);
     }
 
-    @PostMapping("/entities/{entityId}/scores")
-    public Score addScore(@RequestBody Score score, @PathVariable int entityId) throws GiraffeAPIException {
-        score.setUserId(entityId);
-        return scoreDAO.addScore(score);
-    }
 }
