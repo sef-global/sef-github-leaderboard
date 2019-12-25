@@ -1,7 +1,6 @@
 package org.sefglobal.githubleaderboad.api.dao;
 
-import org.sefglobal.giraffe.api.beans.*;
-import org.sefglobal.githubleaderboad.api.beans.EntityWithPoints;
+import org.sefglobal.githubleaderboad.api.beans.UserWithPoints;
 import org.sefglobal.githubleaderboad.api.beans.PaginatedResult;
 import org.sefglobal.githubleaderboad.api.beans.PaginatedScoreResult;
 import org.sefglobal.githubleaderboad.api.beans.Score;
@@ -17,7 +16,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import javax.servlet.http.HttpServletResponse;
 import java.sql.PreparedStatement;
 import java.util.Date;
 import java.util.HashMap;
@@ -36,23 +34,20 @@ public class ScoreDAO {
         String sqlQuery = "" +
                 "INSERT INTO" +
                 "   score(" +
-                "       entity_id, " +
-                "       description, " +
-                "       points, " +
-                "       created_at, " +
-                "       status" +
+                "       user_id, " +
+                "       pr_url, " +
+                "       created_at"+
                 "   ) " +
                 "VALUES " +
-                "   (?,?,?,?,'ACTIVE')";
+                "   (?,?,?)";
 
         try {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             jdbcTemplate.update(connection -> {
                 PreparedStatement ps = connection.prepareStatement(sqlQuery, new String[]{"id"});
-                ps.setInt(1, score.getEntityId());
-                ps.setString(2, score.getDescription());
-                ps.setInt(3, score.getPoints());
-                ps.setLong(4, new Date().getTime() / 1000);
+                ps.setInt(1, score.getUserId());
+                ps.setString(2, score.getPrUrl());
+                ps.setLong(3, new Date().getTime() / 1000);
                 return ps;
             }, keyHolder);
             int key = keyHolder.getKey().intValue();
@@ -70,9 +65,7 @@ public class ScoreDAO {
                 "FROM " +
                 "   score " +
                 "WHERE " +
-                "   id=? " +
-                "   AND " +
-                "   status='ACTIVE'";
+                "   id=? ";
 
         try {
             return jdbcTemplate.queryForObject(
@@ -86,36 +79,15 @@ public class ScoreDAO {
         }
     }
 
-    public void removeScore(int id, HttpServletResponse response) throws ResourceNotFoundException {
-        String sqlQuery = "" +
-                "UPDATE " +
-                "   score " +
-                "SET " +
-                "   status = 'REMOVED' " +
-                "WHERE " +
-                "   id = ?";
-
-        try {
-            jdbcTemplate.update(sqlQuery, id);
-        } catch (DataAccessException e) {
-            logger.error("Unable remove '" + id + "'", e);
-            throw new ResourceNotFoundException("Score not found");
-        }
-        response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-    }
-
     public PaginatedScoreResult getPaginatedScoreByEntityId(int entityId, int limit, int offset) throws ResourceNotFoundException {
 
         String sqlQuery = "" +
                 "SELECT " +
-                "   COUNT(id) as count, " +
-                "   SUM(points) as points " +
+                "   COUNT(id) as count " +
                 "FROM " +
                 "   score " +
                 "WHERE " +
-                "   entity_id=? " +
-                "   AND " +
-                "   status='ACTIVE'";
+                "   user_id=? ";
         final Map map = new HashMap<String, Integer>();
         try {
             jdbcTemplate.queryForObject(
@@ -123,7 +95,6 @@ public class ScoreDAO {
                     new Object[]{entityId},
                     (rs, rowNum) -> {
                         map.put("count", rs.getInt("count"));
-                        map.put("points", rs.getInt("points"));
                         return null;
                     }
             );
@@ -133,7 +104,7 @@ public class ScoreDAO {
         }
 
         int count = (Integer) map.get("count");
-        int points = (Integer) map.get("points");
+        int points = count * 10;
 
         return new PaginatedScoreResult(count, points, getScoreByEntityId(entityId, limit, offset));
     }
@@ -145,9 +116,7 @@ public class ScoreDAO {
                 "FROM " +
                 "   score " +
                 "WHERE " +
-                "   entity_id=? " +
-                "   AND " +
-                "   status='ACTIVE' " +
+                "   user_id=? " +
                 "ORDER BY " +
                 "   id DESC " +
                 "LIMIT " +
@@ -160,39 +129,26 @@ public class ScoreDAO {
                     (rs, rowNum) -> BeanUtil.getScoreFromResultSet(rs)
             );
         } catch (DataAccessException e) {
-            logger.error("Unable to get entity info", e);
+            logger.error("Unable to get user info", e);
         }
         return null;
     }
 
-    public PaginatedResult getPaginatedEntitiesWithPointsByBoardId(int boardId, int limit, int offset) throws ResourceNotFoundException {
+    public PaginatedResult getPaginatedUsersWithPoints(int limit, int offset) throws ResourceNotFoundException {
         String sqlQuery = "" +
                 "SELECT " +
-                "    COUNT(DISTINCT (e.id)) as count " +
+                "    COUNT(DISTINCT (u.id)) as count " +
                 "FROM " +
-                "       entity e " +
+                "       user u " +
                 "   INNER JOIN " +
                 "       score s " +
                 "   ON " +
-                "       e.id = s.entity_id " +
-                "   INNER JOIN " +
-                "       board b " +
-                "   ON " +
-                "       e.board_id = b.id " +
-                "WHERE " +
-                "   b.status = 'ACTIVE' " +
-                "   AND " +
-                "   b.id = ? " +
-                "   AND " +
-                "   e.status='ACTIVE' " +
-                "   AND " +
-                "   s.status='ACTIVE'";
+                "       u.id = s.user_id ";
 
         int count;
         try {
             count = jdbcTemplate.queryForObject(
                     sqlQuery,
-                    new Object[]{boardId},
                     (rs, rowNum) -> rs.getInt("count")
             );
         } catch (DataAccessException e) {
@@ -200,38 +156,26 @@ public class ScoreDAO {
             throw new ResourceNotFoundException();
         }
 
-        return new PaginatedResult(count, getEntityWithPointsByBoardId(boardId, limit, offset));
+        return new PaginatedResult(count, getEntityWithPoints(limit, offset));
     }
 
-    public List<EntityWithPoints> getEntityWithPointsByBoardId(int boardId, int limit, int offset) {
+    public List<UserWithPoints> getEntityWithPoints(int limit, int offset) {
         String sqlQuery = "" +
                 "SELECT " +
                 "   e.*, " +
-                "   SUM(s.points) as points, " +
+                "   COUNT(s.id) as points, " +
                 "   RANK() " +
                 "       OVER (" +
-                "           ORDER BY SUM(s.points) DESC " +
+                "           ORDER BY COUNT(s.id) DESC " +
                 "       ) `rank` " +
                 "FROM " +
-                "       entity e " +
+                "       user e " +
                 "   INNER JOIN " +
                 "       score s " +
                 "   ON " +
-                "       e.id = s.entity_id " +
-                "   INNER JOIN " +
-                "       board b " +
-                "   ON " +
-                "       e.board_id = b.id " +
-                "WHERE " +
-                "   b.status = 'ACTIVE' " +
-                "   AND " +
-                "   b.id = ? " +
-                "   AND " +
-                "   e.status='ACTIVE' " +
-                "   AND " +
-                "   s.status='ACTIVE' " +
+                "       e.id = s.user_id " +
                 "GROUP BY " +
-                "   entity_id " +
+                "   user_id " +
                 "ORDER BY " +
                 "   points DESC " +
                 "LIMIT " +
@@ -240,7 +184,7 @@ public class ScoreDAO {
         try {
             return jdbcTemplate.query(
                     sqlQuery,
-                    new Object[]{boardId, offset, limit},
+                    new Object[]{offset, limit},
                     (rs, rowNum) -> BeanUtil.getEntityWithPointsFromResultSet(rs)
             );
         } catch (DataAccessException e) {

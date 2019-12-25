@@ -74,7 +74,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <packagingExcludes>WEB-INF/lib/*cxf*.jar</packagingExcludes>
-                    <warName>api#giraffe#v1</warName>
+                    <warName>api#github-leaderboad#v1</warName>
                 </configuration>
             </plugin>
         </plugins>

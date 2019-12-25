@@ -1,10 +1,10 @@
 package org.sefglobal.githubleaderboad.api.beans;
 
-public class EntityWithPoints extends Entity {
-    int points;
-    int rank;
+public class UserWithPoints extends User {
+    private int points;
+    private int rank;
 
-    public EntityWithPoints() {
+    public UserWithPoints() {
     }
 
     public int getPoints() {

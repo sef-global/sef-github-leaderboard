@@ -2,11 +2,9 @@ package org.sefglobal.githubleaderboad.api.beans;
 
 public class Score {
     private int id;
-    private int entityId;
-    private String description;
-    private int points;
+    private int userId;
+    private String prUrl;
     private long createdAt;
-    private String status;
 
     public Score() {
     }
@@ -19,36 +17,20 @@ public class Score {
         this.id = id;
     }
 
-    public int getEntityId() {
-        return entityId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setEntityId(int entityId) {
-        this.entityId = entityId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getDescription() {
-        return description;
+    public String getPrUrl() {
+        return prUrl;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setPrUrl(String prUrl) {
+        this.prUrl = prUrl;
     }
 
     public long getCreatedAt() {

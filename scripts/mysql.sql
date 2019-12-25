@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `sef_giraffe` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `sef_giraffe`;
+CREATE DATABASE  IF NOT EXISTS `sef_github_leaderboard` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `sef_github_leaderboard`;
 -- MySQL dump 10.13  Distrib 8.0.14, for macos10.14 (x86_64)
 --
--- Host: localhost    Database: sef_giraffe
+-- Host: localhost    Database: sef_github_leaderboard
 -- ------------------------------------------------------
 -- Server version	8.0.13
 
@@ -18,38 +18,18 @@ SET NAMES utf8 ;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `board`
+-- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `board`;
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 SET character_set_client = utf8mb4 ;
-CREATE TABLE `board` (
-                         `id` int(11) NOT NULL AUTO_INCREMENT,
-                         `title` varchar(100) NOT NULL,
-                         `image` varchar(250) NOT NULL,
-                         `description` text,
-                         `status` varchar(10) NOT NULL,
-                         PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `entity`
---
-
-DROP TABLE IF EXISTS `entity`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-SET character_set_client = utf8mb4 ;
-CREATE TABLE `entity` (
+CREATE TABLE `user` (
                           `id` int(11) NOT NULL AUTO_INCREMENT,
-                          `name` varchar(100) NOT NULL,
+                          `username` varchar(100) NOT NULL,
                           `image` varchar(250) NOT NULL,
-                          `board_id` int(11) NOT NULL,
-                          `status` varchar(10) NOT NULL,
-                          PRIMARY KEY (`id`),
-                          KEY `fk_entity_board_idx` (`board_id`),
-                          CONSTRAINT `fk_entity_board` FOREIGN KEY (`board_id`) REFERENCES `board` (`id`)
+                          `url` varchar(250) NOT NULL,
+                          PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -62,14 +42,12 @@ DROP TABLE IF EXISTS `score`;
 SET character_set_client = utf8mb4 ;
 CREATE TABLE `score` (
                          `id` int(11) NOT NULL AUTO_INCREMENT,
-                         `entity_id` int(11) NOT NULL,
-                         `description` varchar(250) DEFAULT NULL,
-                         `points` int(11) NOT NULL,
+                         `user_id` int(11) NOT NULL,
+                         `pr_url` varchar(250) DEFAULT NULL,
                          `created_at` bigint(20) NOT NULL,
-                         `status` varchar(10) NOT NULL,
                          PRIMARY KEY (`id`),
-                         KEY `fk_score_entity1_idx` (`entity_id`),
-                         CONSTRAINT `fk_score_entity1` FOREIGN KEY (`entity_id`) REFERENCES `entity` (`id`)
+                         KEY `fk_score_entity1_idx` (`user_id`),
+                         CONSTRAINT `fk_score_entity1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

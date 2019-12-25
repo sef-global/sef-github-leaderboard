@@ -8,39 +8,32 @@ import org.sefglobal.githubleaderboad.api.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-
 @RestController
 public class ScoreManagementAPI {
     @Autowired
     private ScoreDAO scoreDAO;
 
-    @GetMapping("/entities/{entityId}/scores")
+    @GetMapping("/users/{userId}/scores")
     public PaginatedResult getAllScores(
-            @PathVariable int entityId,
+            @PathVariable int userId,
             @RequestParam int limit,
             @RequestParam int offset
     ) throws ResourceNotFoundException {
-        return scoreDAO.getPaginatedScoreByEntityId(entityId, limit, offset);
+        return scoreDAO.getPaginatedScoreByEntityId(userId, limit, offset);
     }
 
-    @GetMapping("boards/{boardId}/scores")
+    @GetMapping("/scores")
     public PaginatedResult getBoardLeaderBoard(
             @PathVariable int boardId,
             @RequestParam int limit,
             @RequestParam int offset
     ) throws ResourceNotFoundException {
-        return scoreDAO.getPaginatedEntitiesWithPointsByBoardId(boardId,limit,offset);
+        return scoreDAO.getPaginatedUsersWithPoints(limit,offset);
     }
 
     @PostMapping("/entities/{entityId}/scores")
     public Score addScore(@RequestBody Score score, @PathVariable int entityId) throws GiraffeAPIException {
-        score.setEntityId(entityId);
+        score.setUserId(entityId);
         return scoreDAO.addScore(score);
-    }
-
-    @DeleteMapping("/scores/{id}")
-    public void removeScore(@PathVariable int id, HttpServletResponse response) throws GiraffeAPIException {
-        scoreDAO.removeScore(id, response);
     }
 }
