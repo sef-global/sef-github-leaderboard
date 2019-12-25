@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!--    <meta name="description"-->
+<!--          content="">-->
+    <meta name="author" content="Sustainable Education Foundation">
+    <meta property="og:image" content="https://sefglobal.org/assets/img/ill/multiverse-meta-image.png">
+    <meta name="twitter:image" content="https://sefglobal.org/assets/img/ill/multiverse-meta-image.png">
+    <title>SEF Giraffe Board</title>
+    <!-- Favicon -->
+    <link href="assets/img/favicon.png" rel="icon" type="image/png">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <!-- Icons -->
+    <link href="assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+    <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Argon CSS -->
+    <link type="text/css" href="assets/css/argon.css?v=1.0.1" rel="stylesheet">
+    <!-- Data Tables-->
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
+    <!-- Global custom CSS -->
+    <link type="text/css" href="assets/css/global-custom.css" rel="stylesheet">
+
+    <style>
+        .profile-image{
+            width: 64px;
+            margin-right: 24px;
+        }
+
+        .table tbody td{
+            vertical-align: middle;
+        }
+
+        /*#modal-score-history {*/
+        /*    width: 1000px;*/
+        /*    margin: auto;*/
+        /*}*/
+    </style>
+</head>
+
+<body>
+<header class="header-global">
+    <!--nav bar goes here-->
+    <div id="navbar">
+
+    </div>
+</header>
+
+
+<main>
+    <section class="section pb-0 bg-gradient-white">
+        <div class="container" id="main-header">
+
+        </div>
+
+    </section>
+    <div class="position-relative">
+
+        <section class="section pb-0 pt-0">
+
+            <div class="py-5">
+                <div class="container">
+
+                    <div id="leader-board">
+                        <table id="example" class="table table-hover" style="width:100%">
+
+                            <thead>
+                            <tr>
+                                <th width="48"></th>
+                                <th></th>
+                                <th>Rank</th>
+                                <th>Points</th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+
+</main>
+
+<div id="footer"></div>
+<div class="modal fade" id="modal-score-history" tabindex="-1" role="dialog" aria-labelledby="modal-default"
+     aria-hidden="true">
+    <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-score-history-title"></h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body table-responsive">
+                <table width="100%" id="tbl-score-history" class="display responsive table" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Points</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<!-- Core -->
+<script src="assets/vendor/jquery/jquery.min.js"></script>
+<script src="assets/vendor/popper/popper.min.js"></script>
+<script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
+<script src="assets/vendor/headroom/headroom.min.js"></script>
+<!--Data tables-->
+<script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<!--Mustache.js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+<!--Moment.js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<!--Bootstrap notify-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.min.js"></script>
+<!-- Argon JS -->
+<script src="assets/js/argon.js?v=1.0.1"></script>
+<!-- Script for common functions -->
+<script src="assets/js/common-functions.js"></script>
+<!-- Script for static navbar and footer -->
+<script src="assets/js/navigation.js"></script>
+<!--Load page script-->
+<script src="assets/js/pages/index.js"></script>
+
+<!--Template to display main header-->
+<script type="text/html" id="template-main-header">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="d-flex px-3">
+                <div class="pl-4">
+                    <h1 class="display-1 pb-3" style="line-height: 1.2;">{{title}}</h1>
+                    <p class="pb-5">{{description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!--Template to display on 404-->
+<script type="text/html" id="template-404">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="d-flex px-3">
+                <div class="pl-4">
+                    <h1 class="display-1 pb-3" style="line-height: 1.2;">404 - Page Not Found</h1>
+                    <p class="pb-5">The page you requested was not found</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+</html>

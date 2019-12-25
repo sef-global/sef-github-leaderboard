@@ -1,0 +1,146 @@
+.testimonial .testimonial-photo{
+    width: 100px;
+    display: block;
+    margin: 10px auto -70px;
+}
+.testimonial .icon{
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.img-full{
+    width: 100%;
+}
+
+.blog-card .card-body{
+    padding: 24px 0;
+}
+.blog-card .card-description{
+    font-size: 0.8em;
+    text-align: justify;
+}
+
+/* START added by naveen  */
+
+.btn-linkedin
+{
+    color: #fff;
+    border-color: #0077B5;
+    background-color: #0077B5;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+}
+.btn-linkedin:hover
+{
+    color: #fff;
+    border-color: #0077B5; 
+    background-color: #0077B5;
+}
+.btn-linkedin:focus,
+.btn-linkedin.focus
+{
+    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08), 0 0 0 0 rgba(234, 76, 137, .5);
+}
+.btn-linkedin.disabled,
+.btn-linkedin:disabled
+{
+    color: #fff;
+    border-color: #0077B5; 
+    background-color: #0077B5;
+}
+.btn-linkedin:not(:disabled):not(.disabled):active,
+.btn-linkedin:not(:disabled):not(.disabled).active,
+.show > .btn-linkedin.dropdown-toggle
+{
+    color: #fff;
+    border-color: #0077B5; 
+    background-color: #0077B5;
+}
+.btn-linkedin:not(:disabled):not(.disabled):active:focus,
+.btn-linkedin:not(:disabled):not(.disabled).active:focus,
+.show > .btn-linkedin.dropdown-toggle:focus
+{
+    box-shadow: none, 0 0 0 0 rgba(234, 76, 137, .5);
+}
+/* END added by naveen */
+
+/*added by Jaye*/
+.shape-dark-blue{
+    background:  #172b4d;
+}
+.section-shaped .shape-dark-blue :nth-child(1)
+{
+    background: #2e2e57;
+}
+.section-shaped .shape-dark-blue :nth-child(2)
+{
+    background: #2b2b58;
+}
+.section-shaped .shape-dark-blue :nth-child(3)
+{
+    background: #25254d;
+}
+.section-shaped .shape-dark-blue :nth-child(4)
+{
+    background: #d782d9;
+}
+.section-shaped .shape-dark-blue :nth-child(5)
+{
+    background: #008169;
+}
+
+.section-shaped .shape-style-1 :nth-child(1)
+{
+    background: rgba(255, 255, 255, .1);
+}
+.section-shaped .shape-style-1 :nth-child(2)
+{
+    background: rgba(255, 255, 255, .1);
+}
+.section-shaped .shape-style-1 :nth-child(3)
+{
+    background: rgba(255, 255, 255, .1);
+}
+.section-shaped .shape-style-1 :nth-child(4)
+{
+    background: rgba(255, 255, 255, .1);
+}
+.section-shaped .shape-style-1 :nth-child(5)
+{
+    background: rgba(255, 255, 255, .1);
+}
+.section-shaped .shape-style-1 :nth-child(6)
+{
+    background: rgba(255, 255, 255, .1);
+}
+/*end added by jaye*/
+
+/* added by tiagopedutti */
+
+.partners img{
+    opacity: 0.5;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.partners img:hover{
+    opacity: 1;
+    transform: scale(1.15);
+}
+
+/* END added by tiagopedutti */
+
+
+/*event cards*/
+
+.event-card .date{
+    text-align: right;
+    margin-bottom: -20px;
+    margin-top: 15px;
+}
+
+.event-card .card-img-top{
+    object-fit: cover;
+    object-position: 100% 5px;
+    width: 490px;
+    height: 162px;
+}
