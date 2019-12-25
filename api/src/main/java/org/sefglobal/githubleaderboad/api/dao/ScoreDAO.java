@@ -30,7 +30,7 @@ public class ScoreDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public Score addScore(Score score) throws BadRequestException, ResourceNotFoundException {
+    public Score addScore(Score score) throws ResourceNotFoundException {
         String sqlQuery = "" +
                 "INSERT INTO" +
                 "   score(" +

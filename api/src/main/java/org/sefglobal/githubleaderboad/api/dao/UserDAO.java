@@ -23,7 +23,7 @@ public class UserDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public User addEntity(User user) throws BadRequestException, ResourceNotFoundException {
+    public User addUser(User user) throws BadRequestException{
         if (user.getUsername() == null ||
                 user.getUsername().equals("") ||
                 user.getImage() == null ||
@@ -43,23 +43,21 @@ public class UserDAO {
                 "   (?,?,?,?)";
 
         try {
-            KeyHolder keyHolder = new GeneratedKeyHolder();
             jdbcTemplate.update(connection -> {
-                PreparedStatement ps = connection.prepareStatement(sqlQuery, new String[] {"id"});
-                ps.setString(1, user.getUsername());
-                ps.setString(2, user.getImage());
-                ps.setString(3, user.getUrl());
+                PreparedStatement ps = connection.prepareStatement(sqlQuery);
+                ps.setInt(1, user.getId());
+                ps.setString(2, user.getUsername());
+                ps.setString(3, user.getImage());
+                ps.setString(4, user.getUrl());
                 return ps;
-            }, keyHolder);
-            int key = keyHolder.getKey().intValue();
-            return getEntityById(key);
+            });
+            return getUserById(user.getId());
         } catch (DataAccessException e) {
-            logger.error("Unable add user", e);
+            throw new BadRequestException("Unable to add user");
         }
-        return null;
     }
 
-    public User getEntityById(int id) throws ResourceNotFoundException {
+    public User getUserById(int id) {
         String sqlQuery = "" +
                 "SELECT " +
                 "   * " +
@@ -74,8 +72,7 @@ public class UserDAO {
                     (rs, rowNum) -> BeanUtil.getEntityFromResultSet(rs)
             );
         } catch (DataAccessException e) {
-            logger.error("Unable to get info of '" + id + "'", e);
-            throw new ResourceNotFoundException("User not found");
+            return null;
         }
     }
 
