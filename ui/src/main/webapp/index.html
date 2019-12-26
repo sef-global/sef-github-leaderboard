@@ -55,7 +55,13 @@
                     <div class="d-flex px-3">
                         <div class="pl-4">
                             <h1 class="display-1 pb-3" style="line-height: 1.2;">SEF Github Leaderboard</h1>
-                            <p class="pb-5">The following leaderboard shows top github contributors of SEF</p>
+                            <p>The following leaderboard shows the top github contributors of SEF.
+                                You can join this leaderboard by sending a Pull Request to any repository within
+                                <strong><a href="https://github.com/sef-global/" target="_blank">
+                                    SEF Github Organization.
+                                </a></strong>
+                                Scores will automatically updates when merging a Pull request. <b>1 merged PR = 10 Points</b>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -71,7 +77,7 @@
                 <div class="container">
 
                     <div id="leader-board">
-                        <table id="example" class="table table-hover" style="width:100%">
+                        <table id="tbl-leaderboard" class="table table-hover" style="width:100%">
 
                             <thead>
                             <tr>
@@ -98,7 +104,16 @@
     <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title" id="modal-score-history-title"></h6>
+                <img id="modal-score-history-avatar"
+                     alt="Avatar"
+                     src="#"
+                     class="img-fluid rounded-circle profile-image"/>
+                <h5 id="modal-score-history-username" class="mt-auto mb-auto">Loading...</h5>
+                <a id="modal-score-history-url"
+                   target="_blank"
+                   class="btn btn-github btn-icon-only rounded-circle btn-icon-rounded mt-auto mb-auto ml-3">
+                    <i class="fa fa-github"></i>
+                </a>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>

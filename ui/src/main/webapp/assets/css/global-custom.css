@@ -144,3 +144,7 @@
     width: 490px;
     height: 162px;
 }
+
+#tbl-leaderboard tr {
+    cursor: pointer;
+}
