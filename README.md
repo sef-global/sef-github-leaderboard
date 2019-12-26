@@ -78,10 +78,10 @@ then Add webhook.
 
 `Payload URL` - Our Webhook url
 
-`Content type` - Our `application/json`
+`Content type` - `application/json`
 
 `Which events would you.. webhook?` - Select 'Let me select individual events.' & select `Pull requests`
 
-Now send a pull request to your repo to test.
+Now send a pull request to your repo and merge to test.
 
 Rejoice!!! 
