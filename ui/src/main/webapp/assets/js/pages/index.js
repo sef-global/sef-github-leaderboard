@@ -7,7 +7,7 @@ $(function () {
 
 function loadLeaderBoard() {
     const url = window.location.origin + `/api/github-leaderboad/v1/scores`;
-    const table = $('#example').DataTable({
+    const table = $('#tbl-leaderboard').DataTable({
         "processing": true,
         "serverSide": true,
         "bFilter": false,
@@ -50,10 +50,12 @@ function loadLeaderBoard() {
         ]
     });
 
-    $('#example tbody').on('click', 'tr', function () {
+    $('#tbl-leaderboard tbody').on('click', 'tr', function () {
         let data = table.row( this ).data();
         $("#modal-score-history").modal('show');
-        $('#modal-score-history-title').text(data.name);
+        $('#modal-score-history-username').text(data.username);
+        $('#modal-score-history-avatar').attr("src", data.image);
+        $('#modal-score-history-url').attr("href", data.url);
         loadScoreHistory(data.id);
     } );
 }
