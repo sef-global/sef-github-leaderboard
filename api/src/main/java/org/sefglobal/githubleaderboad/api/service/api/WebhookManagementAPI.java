@@ -44,11 +44,10 @@ public class WebhookManagementAPI {
         if (!webhookKey.equals(key)) {
             return;
         }
-        // Check if the event related to a pull request
-        if (payload.containsKey("pull_request")) {
+        // Check if the event related to a closed pull request
+        if (payload.containsKey("pull_request") && ((String)payload.get("action")).equals("closed")) {
             Map<String, Object> pullRequest = (Map<String, Object>) payload.get("pull_request");
             if (pullRequest.containsKey("merged") && (boolean) pullRequest.get("merged")) {
-                System.out.println("Merged");
                 Map<String, Object> userObject = (Map<String, Object>) pullRequest.get("user");
                 int userId = (Integer) userObject.get("id");
                 try {
