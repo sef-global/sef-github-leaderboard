@@ -148,3 +148,15 @@
 #tbl-leaderboard tr {
     cursor: pointer;
 }
+
+#tbl-leaderboard tbody tr :nth-child(3){
+    font-family: 'Source Code Pro', monospace;
+}
+
+#tbl-leaderboard tbody tr :nth-child(4){
+    font-family: 'Source Code Pro', monospace;
+}
+
+#tbl-score-history tbody tr :nth-child(1){
+    font-family: 'Source Code Pro', monospace;
+}
