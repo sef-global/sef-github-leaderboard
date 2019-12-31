@@ -39,30 +39,43 @@ function loadLeaderBoard() {
                 "mData": "username",
                 "mRender": function (data, type, row) {
                     return '<span>' +
-                        '<img src="'+row.image+'&s=100" alt="Circle image" class="img-fluid rounded-circle profile-image" >' +
-                            // row.name +
+                        '<img src="' + row.image + '&s=100" alt="Circle image" class="img-fluid rounded-circle profile-image" >' +
+                        // row.name +
                         '</span>';
                 }
             },
             {"data": "username"},
-            {"data": "rank"},
-            {"data": "points"}
+            {
+                "mData": "rank",
+                "mRender": function (data, type, row) {
+                    return '<span class="font-source-code">'
+                        + data +
+                        '</span>';
+                }
+            },{
+                "mData": "points",
+                "mRender": function (data, type, row) {
+                    return '<span class="font-source-code">'
+                        + data +
+                        '</span>';
+                }
+            }
         ]
     });
 
     $('#tbl-leaderboard tbody').on('click', 'tr', function () {
-        let data = table.row( this ).data();
+        let data = table.row(this).data();
         $("#modal-score-history").modal('show');
         $('#modal-score-history-username').text(data.username);
         $('#modal-score-history-avatar').attr("src", data.image);
         $('#modal-score-history-url').attr("href", data.url);
         loadScoreHistory(data.id);
-    } );
+    });
 }
 
 function loadScoreHistory(entityId) {
     const url = window.location.origin + `/api/github-leaderboad/v1/users/${entityId}/scores`;
-    if(tblScoreHistory != null){
+    if (tblScoreHistory != null) {
         tblScoreHistory.destroy();
     }
     tblScoreHistory = $('#tbl-score-history').DataTable({
@@ -97,16 +110,16 @@ function loadScoreHistory(entityId) {
             {
                 "mData": "createdAt",
                 "mRender": function (data, type, row) {
-                    return moment.unix(data).format("YYYY-MM-DD HH:mm");
+                    return '<span class="font-source-code">' + moment.unix(data).format("YYYY-MM-DD HH:mm") + '</span>';
                 }
             },
             {
                 "mData": "prUrl",
                 "mRender": function (data, type, row) {
-                    return '<a target="_blank" href="'+data+'">'+data+'</a>';
+                    return '<a target="_blank" href="' + data + '">' + data + '</a>';
                 }
             }
         ]
     });
-    
+
 }

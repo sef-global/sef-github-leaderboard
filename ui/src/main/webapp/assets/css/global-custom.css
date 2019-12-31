@@ -148,15 +148,14 @@
 #tbl-leaderboard tr {
     cursor: pointer;
 }
+.navbar-toggler-icon
+{
 
-#tbl-leaderboard tbody tr :nth-child(3){
-    font-family: 'Source Code Pro', monospace;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(50,50,93, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }
 
-#tbl-leaderboard tbody tr :nth-child(4){
+/* Added by GraveWalker */
+.font-source-code{
     font-family: 'Source Code Pro', monospace;
 }
-
-#tbl-score-history tbody tr :nth-child(1){
-    font-family: 'Source Code Pro', monospace;
-}
+/* End Adding */
