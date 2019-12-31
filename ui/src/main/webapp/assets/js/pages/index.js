@@ -48,16 +48,16 @@ function loadLeaderBoard() {
             {
                 "mData": "rank",
                 "mRender": function (data, type, row) {
-                    return '<span class="font-source-code">'
-                        + data +
-                        '</span>';
+                    return '<span class="font-source-code">' +
+                                data +
+                            '</span>';
                 }
             },{
                 "mData": "points",
                 "mRender": function (data, type, row) {
-                    return '<span class="font-source-code">'
-                        + data +
-                        '</span>';
+                    return '<span class="font-source-code">' +
+                                data +
+                            '</span>';
                 }
             }
         ]
