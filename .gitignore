@@ -28,7 +28,6 @@ local.properties
 *.loadpath
 *.recommenders
 *.project
-.classpath
 
 # External tool builders
 .externalToolBuilders/
@@ -74,3 +73,10 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+
+.DS_Store
+.travis/deploy_rsa
+.travis/deploy_rsa.pub
+
+application.properties
+configprops.properties

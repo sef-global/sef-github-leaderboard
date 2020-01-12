@@ -1,0 +1,18 @@
+language: java
+sudo: true
+script:
+- mvn install
+before_deploy:
+- openssl aes-256-cbc -K $encrypted_c6e9b7ee5f3a_key -iv $encrypted_c6e9b7ee5f3a_iv
+  -in .travis/deploy_rsa.enc -out .travis/deploy_rsa -d
+- eval "$(ssh-agent -s)"
+- cp .travis/deploy_rsa ~/.ssh/deploy_rsa
+- chmod 600 ~/.ssh/deploy_rsa
+- ssh-add ~/.ssh/deploy_rsa
+deploy:
+- provider: script
+  skip_cleanup: true
+  script: bash scripts/deploy.sh
+  on:
+    repo: sef-global/sef-site
+    branch: master

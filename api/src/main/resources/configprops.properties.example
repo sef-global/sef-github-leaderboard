@@ -1,4 +1,4 @@
 # Replace this value with any string this will be your webhook key
 # http://{your_host}/api/github-leaderboad/v1/webhook/{YOUR_KEY}
-config.webhookKey = YOUR_KEY
+config.webhookKey = <WEBHOOK_KEY>
 
