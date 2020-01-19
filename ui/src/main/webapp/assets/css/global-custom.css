@@ -158,3 +158,12 @@
 .font-source-code{
     font-family: 'Source Code Pro', monospace;
 }
+
+#tbl-leaderboard th {
+    text-align: right;
+}
+
+/* LeaderBoard table data*/
+#tbl-leaderboard td {
+    text-align: right;
+}
