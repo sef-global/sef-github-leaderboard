@@ -29,11 +29,25 @@
 
 ## Building the project
 
+1. Create a copy from both example files.
+    ```
+        cp api/src/main/resources/application.properties.example api/src/main/resources/application.properties
+        cp api/src/main/resources/configprops.properties.example api/src/main/resources/configprops.properties
+    ```
+
+1. Replace the respective properties in the application.properties file
+    ```
+     vim api/src/main/resources/application.properties  
+    ```
+   - `<DB_NAME>` - Database name 
+   - `<DB_USERNAME>` - Database name 
+   - `<DB_PASSWORD>` - Database name 
+
 1. Add a random String as the webhook key in configprops.properties file
    ```
      vim api/src/main/resources/configprops.properties  
    ```
-    replace `config.webhookKey` key with your random string. 
+    replace `<WEBHOOK_KEY>` key with your random string. 
 2. Build the project using maven
     ```
     mvn clean install
