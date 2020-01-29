@@ -1,10 +1,8 @@
 package org.sefglobal.githubleaderboad.api.dao;
 
 import java.sql.PreparedStatement;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import org.sefglobal.githubleaderboad.api.beans.PaginatedResult;
 import org.sefglobal.githubleaderboad.api.beans.PaginatedScoreResult;
 import org.sefglobal.githubleaderboad.api.beans.Score;
@@ -77,7 +75,8 @@ public class ScoreDAO {
         }
     }
 
-    public PaginatedScoreResult getPaginatedScoreByEntityId(int entityId, int limit, int offset) throws ResourceNotFoundException {
+    public PaginatedScoreResult getPaginatedScoreByEntityId(int entityId, int limit, int offset, Long from, Long to)
+            throws ResourceNotFoundException {
 
         String sqlQuery = "" +
                 "SELECT " +
@@ -86,11 +85,20 @@ public class ScoreDAO {
                 "   score " +
                 "WHERE " +
                 "   user_id=? ";
+
+        ArrayList<Object> parameters = new ArrayList<>();
+        parameters.add(entityId);
+
+        if (from != null && to != null) {
+            sqlQuery = sqlQuery + " AND created_at BETWEEN ? AND ? ";
+            parameters.add(from);
+            parameters.add(to);
+        }
         final Map map = new HashMap<String, Integer>();
         try {
             jdbcTemplate.queryForObject(
                     sqlQuery,
-                    new Object[]{entityId},
+                    parameters.toArray(),
                     (rs, rowNum) -> {
                         map.put("count", rs.getInt("count"));
                         return null;
@@ -104,26 +112,39 @@ public class ScoreDAO {
         int count = (Integer) map.get("count");
         int points = count * 10;
 
-        return new PaginatedScoreResult(count, points, getScoreByEntityId(entityId, limit, offset));
+        return new PaginatedScoreResult(count, points, getScoreByEntityId(entityId, limit, offset, from, to));
     }
 
-    public List<Score> getScoreByEntityId(int id, int limit, int offset) {
+    public List<Score> getScoreByEntityId(int id, int limit, int offset, Long from, Long to) {
         String sqlQuery = "" +
                 "SELECT " +
                 "   * " +
                 "FROM " +
                 "   score " +
                 "WHERE " +
-                "   user_id=? " +
+                "   user_id=? ";
+        if (from != null || to != null) {
+            sqlQuery = sqlQuery + " AND created_at BETWEEN ? AND ? ";
+        }
+        sqlQuery = sqlQuery +
                 "ORDER BY " +
                 "   id DESC " +
                 "LIMIT " +
                 "   ?, ?";
 
+        ArrayList<Object> parameters = new ArrayList<>();
+        parameters.add(id);
+        if (from != null && to != null) {
+            parameters.add(from);
+            parameters.add(to);
+        }
+        parameters.add(offset);
+        parameters.add(limit);
+
         try {
             return jdbcTemplate.query(
                     sqlQuery,
-                    new Object[]{id, offset, limit},
+                    parameters.toArray(),
                     (rs, rowNum) -> BeanUtil.getScoreFromResultSet(rs)
             );
         } catch (DataAccessException e) {
@@ -132,7 +153,9 @@ public class ScoreDAO {
         return null;
     }
 
-    public PaginatedResult getPaginatedUsersWithPoints(int limit, int offset) throws ResourceNotFoundException {
+    public PaginatedResult getPaginatedUsersWithPoints(int limit, int offset, Long from, Long to)
+            throws ResourceNotFoundException {
+        ArrayList<Object> parameters = new ArrayList<>();
         String sqlQuery = "" +
                 "SELECT " +
                 "    COUNT(DISTINCT (u.id)) as `count` " +
@@ -142,11 +165,17 @@ public class ScoreDAO {
                 "       score s " +
                 "   ON " +
                 "       u.id = s.user_id ";
+        if (from != null && to != null) {
+            sqlQuery = sqlQuery + "WHERE created_at BETWEEN ? AND ? ";
+            parameters.add(from);
+            parameters.add(to);
+        }
 
         int count;
         try {
             count = jdbcTemplate.queryForObject(
                     sqlQuery,
+                    parameters.toArray(),
                     (rs, rowNum) -> rs.getInt("count")
             );
         } catch (DataAccessException e) {
@@ -154,10 +183,10 @@ public class ScoreDAO {
             throw new ResourceNotFoundException();
         }
 
-        return new PaginatedResult(count, getEntityWithPoints(limit, offset));
+        return new PaginatedResult(count, getEntityWithPoints(limit, offset, from, to));
     }
 
-    public List<UserWithPoints> getEntityWithPoints(int limit, int offset) {
+    public List<UserWithPoints> getEntityWithPoints(int limit, int offset, Long from, Long to) {
         String sqlQuery = "" +
                 "SELECT " +
                 "   e.*, " +
@@ -171,18 +200,32 @@ public class ScoreDAO {
                 "   INNER JOIN " +
                 "       score s " +
                 "   ON " +
-                "       e.id = s.user_id " +
+                "       e.id = s.user_id ";
+
+        if (from != null && to != null) {
+            sqlQuery = sqlQuery + "WHERE created_at BETWEEN ? AND ? ";
+        }
+        sqlQuery = sqlQuery +
                 "GROUP BY " +
                 "   user_id " +
                 "ORDER BY " +
                 "   points DESC " +
-                "LIMIT " +
-                "   ?, ?";
+                "LIMIT ?, ? ";
+
+        ArrayList<Object> parameters = new ArrayList<>();
+
+        if (from != null && to != null) {
+            parameters.add(from);
+            parameters.add(to);
+        }
+        parameters.add(offset);
+        parameters.add(limit);
+
 
         try {
             return jdbcTemplate.query(
                     sqlQuery,
-                    new Object[]{offset, limit},
+                    parameters.toArray(),
                     (rs, rowNum) -> BeanUtil.getEntityWithPointsFromResultSet(rs)
             );
         } catch (DataAccessException e) {

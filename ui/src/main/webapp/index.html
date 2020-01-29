@@ -53,15 +53,16 @@
         <div class="container" id="main-header">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="d-flex px-3">
-                        <div class="pl-4">
+                    <div class="d-flex">
+                        <div>
                             <h1 class="display-1 pb-3" style="line-height: 1.2;">SEF Github Leaderboard</h1>
                             <p>The following leaderboard shows the top github contributors of SEF.
                                 You can join this leaderboard by sending a Pull Request to any repository within
                                 <strong><a href="https://github.com/sef-global/" target="_blank">
                                     SEF Github Organization.
                                 </a></strong>
-                                Scores will automatically updates when merging a Pull request. <b>1 merged PR = 10 Points</b>
+                                Scores will automatically updates when merging a Pull request.<br/>
+                                <b>1 merged PR = 10 Points</b>
                             </p>
                         </div>
                     </div>
@@ -73,19 +74,52 @@
     <div class="position-relative">
 
         <section class="section pb-0 pt-0">
-
             <div class="py-5">
                 <div class="container">
-
+                    <ul class="nav nav-pills mb-3 font-source-code font-weight-500" id="tabs_2" role="tablist">
+                        <li class="nav-item">
+                            <a onclick="loadData('THIS_MONTH')"
+                               class="nav-link active"
+                               data-toggle="tab"
+                               href="#THIS_MONTH"
+                               role="tab"
+                               aria-selected="true"
+                            >
+                                This Month
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a onclick="loadData('LAST_MONTH')"
+                               class="nav-link"
+                               data-toggle="tab"
+                               href="#LAST_MONTH"
+                               role="tab"
+                               aria-selected="false"
+                            >
+                                Last Month
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a onclick="loadData('ALL_TIME')"
+                               class="nav-link"
+                               data-toggle="tab"
+                               href="#ALL_TIME"
+                               role="tab"
+                               aria-selected="false"
+                            >
+                                <i class="fa fa-star"></i>
+                                All Time
+                            </a>
+                        </li>
+                    </ul>
                     <div id="leader-board">
                         <table id="tbl-leaderboard" class="table table-hover" style="width:100%">
-
                             <thead>
                             <tr>
                                 <th width="48"></th>
                                 <th></th>
-                                <th>Rank</th>
-                                <th>Points</th>
+                                <th class="text-right">Rank</th>
+                                <th class="text-right">Points</th>
                             </tr>
                             </thead>
                             <tbody></tbody>
