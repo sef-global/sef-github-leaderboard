@@ -33,7 +33,7 @@
 .btn-linkedin:hover
 {
     color: #fff;
-    border-color: #0077B5; 
+    border-color: #0077B5;
     background-color: #0077B5;
 }
 .btn-linkedin:focus,
@@ -45,7 +45,7 @@
 .btn-linkedin:disabled
 {
     color: #fff;
-    border-color: #0077B5; 
+    border-color: #0077B5;
     background-color: #0077B5;
 }
 .btn-linkedin:not(:disabled):not(.disabled):active,
@@ -53,7 +53,7 @@
 .show > .btn-linkedin.dropdown-toggle
 {
     color: #fff;
-    border-color: #0077B5; 
+    border-color: #0077B5;
     background-color: #0077B5;
 }
 .btn-linkedin:not(:disabled):not(.disabled):active:focus,
@@ -157,13 +157,4 @@
 /* HackerRank Font*/
 .font-source-code{
     font-family: 'Source Code Pro', monospace;
-}
-
-#tbl-leaderboard th {
-    text-align: right;
-}
-
-/* LeaderBoard table data*/
-#tbl-leaderboard td {
-    text-align: right;
 }

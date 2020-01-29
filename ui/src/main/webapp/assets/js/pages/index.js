@@ -1,13 +1,18 @@
 let tblScoreHistory = null;
+let timeRange;
+let table = null;
 
 $(function () {
     loadNavAndFooter('assets/content/static');  //relative path to content directory
-    loadLeaderBoard();
+    loadData('THIS_MONTH');
 });
 
 function loadLeaderBoard() {
     const url = window.location.origin + `/api/github-leaderboad/v1/scores`;
-    const table = $('#tbl-leaderboard').DataTable({
+    if(table != null){
+        table.destroy();
+    }
+    table = $('#tbl-leaderboard').DataTable({
         "processing": true,
         "serverSide": true,
         "bFilter": false,
@@ -23,7 +28,8 @@ function loadLeaderBoard() {
             data: function (params) {
                 return {
                     "limit": params.length,
-                    "offset": params.start
+                    "offset": params.start,
+                    ...timeRange
                 };
             },
             "type": "GET",
@@ -48,16 +54,16 @@ function loadLeaderBoard() {
             {
                 "mData": "rank",
                 "mRender": function (data, type, row) {
-                    return '<span class="font-source-code">' +
+                    return '<div class="font-source-code text-right">' +
                                 data +
-                            '</span>';
+                            '</div>';
                 }
             },{
                 "mData": "points",
                 "mRender": function (data, type, row) {
-                    return '<span class="font-source-code">' +
+                    return '<div class="font-source-code text-right">' +
                                 data +
-                            '</span>';
+                            '</div>';
                 }
             }
         ]
@@ -95,7 +101,8 @@ function loadScoreHistory(entityId) {
             data: function (params) {
                 return {
                     "limit": params.length,
-                    "offset": params.start
+                    "offset": params.start,
+                    ...timeRange
                 };
             },
             "type": "GET",
@@ -122,4 +129,25 @@ function loadScoreHistory(entityId) {
         ]
     });
 
+}
+
+function loadData(range) {
+    switch (range) {
+        case 'THIS_MONTH':
+            timeRange = {
+                from : moment().startOf('month').format('X'),
+                to : moment().endOf('month').format('X')
+            };
+            break;
+        case 'LAST_MONTH':
+            timeRange = {
+                from : moment().subtract(1,'months').startOf('month').format('X'),
+                to : moment().subtract(1,'months').endOf('month').format('X')
+            };
+            break;
+        case 'ALL_TIME':
+            timeRange = {};
+    }
+
+    loadLeaderBoard();
 }
