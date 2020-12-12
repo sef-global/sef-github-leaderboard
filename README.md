@@ -24,7 +24,7 @@
     ```
 3. Run the mysql.sql script in scripts directory to import the database.
     ```
-    mysql> source scripts\mysql.sql;
+    mysql > source scripts\mysql.sql;
     ```
 
 ## Building the project
