@@ -191,16 +191,29 @@ public class ScoreDAO {
                 "SELECT " +
                 "   e.*, " +
                 "   COUNT(s.id) as points, " +
-                "   RANK() " +
-                "       OVER (" +
-                "           ORDER BY COUNT(s.id) DESC " +
-                "       ) `rank` " +
+                "@curRank := @curRank + 1 AS `rank` " +
                 "FROM " +
                 "       user e " +
                 "   INNER JOIN " +
                 "       score s " +
                 "   ON " +
-                "       e.id = s.user_id ";
+                "       e.id = s.user_id, " +
+                "(SELECT @curRank := 0) r ";
+
+//        String sqlQuery = "" +
+//                "SELECT " +
+//                "   e.*, " +
+//                "   COUNT(s.id) as points, " +
+//                "   RANK() " +
+//                "       OVER (" +
+//                "           ORDER BY COUNT(s.id) DESC " +
+//                "       ) `rank` " +
+//                "FROM " +
+//                "       user e " +
+//                "   INNER JOIN " +
+//                "       score s " +
+//                "   ON " +
+//                "       e.id = s.user_id ";
 
         if (from != null && to != null) {
             sqlQuery = sqlQuery + "WHERE created_at BETWEEN ? AND ? ";

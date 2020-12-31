@@ -29,35 +29,29 @@
 
 ## Building the project
 
-1. Create a copy from both example files.
-    ```
-        cp api/src/main/resources/application.properties.example api/src/main/resources/application.properties
-        cp api/src/main/resources/configprops.properties.example api/src/main/resources/configprops.properties
-    ```
-
 1. Replace the respective properties in the application.properties file
     ```
-     vim api/src/main/resources/application.properties  
+     vim src/main/resources/application.properties  
     ```
-   - `<DB_NAME>` - Database name 
-   - `<DB_USERNAME>` - Database name 
-   - `<DB_PASSWORD>` - Database name 
+   - `${DB_NAME}` - Database name + ?useSSL=false
+   - `${DB_URL}` - 127.0.0.1:3306
+   - `${DB_USERNAME}` - Database name 
+   - `${DB_PASSWORD}` - Database name 
 
 1. Add a random String as the webhook key in configprops.properties file
    ```
-     vim api/src/main/resources/configprops.properties  
+     vim src/main/resources/configprops.properties  
    ```
-    replace `<WEBHOOK_KEY>` key with your random string. 
+    replace `${WEBHOOK_KEY}` key with your random string. 
 2. Build the project using maven
     ```
     mvn clean install
     ```
-3. Copy generated war files to tomcat webapps directory
+3. Run the generated jar file
     ```
-    cp ui/target/github-leaderboard.war <tomcat_directory>/webapps
-    cp api/target/api\#github-leaderboad\#v1.war   <tomcat_directory>/webapps
+     java -jar target/sef-github-leaderboard-1.5.9.RELEASE.jar
     ```
-4. Access the UI by visiting `http://localhost:8080/github-leaderboard/`
+4. Access the UI by visiting `http://localhost:9090/`
 
 ## Setting up the webhook
 

@@ -8,7 +8,7 @@ $(function () {
 });
 
 function loadLeaderBoard() {
-    const url = window.location.origin + `/api/github-leaderboad/v1/scores`;
+    const url = window.location.origin + `/scores`;
     if(table != null){
         table.destroy();
     }
@@ -80,7 +80,7 @@ function loadLeaderBoard() {
 }
 
 function loadScoreHistory(entityId) {
-    const url = window.location.origin + `/api/github-leaderboad/v1/users/${entityId}/scores`;
+    const url = window.location.origin + `/users/${entityId}/scores`;
     if (tblScoreHistory != null) {
         tblScoreHistory.destroy();
     }
