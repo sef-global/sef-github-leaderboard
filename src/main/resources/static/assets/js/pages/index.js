@@ -59,7 +59,7 @@ function loadLeaderBoard() {
             //                 '</div>';
             //     }
             // }
-            ,{
+            {
                 "mData": "points",
                 "mRender": function (data, type, row) {
                     return '<div class="font-source-code text-right">' +
