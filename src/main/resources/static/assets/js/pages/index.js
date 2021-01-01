@@ -51,14 +51,15 @@ function loadLeaderBoard() {
                 }
             },
             {"data": "username"},
-            {
-                "mData": "rank",
-                "mRender": function (data, type, row) {
-                    return '<div class="font-source-code text-right">' +
-                                data +
-                            '</div>';
-                }
-            },{
+            // {
+            //     "mData": "rank",
+            //     "mRender": function (data, type, row) {
+            //         return '<div class="font-source-code text-right">' +
+            //                     data +
+            //                 '</div>';
+            //     }
+            // }
+            ,{
                 "mData": "points",
                 "mRender": function (data, type, row) {
                     return '<div class="font-source-code text-right">' +
