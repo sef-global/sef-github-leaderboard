@@ -1,4 +1,4 @@
-# sef-github-leaderboad
+# sef-github-leaderboard
 [https://sefglobal.org/github-leaderboard](https://sefglobal.org/github-leaderboard)
 
 # Setup Development Environment
