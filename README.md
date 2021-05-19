@@ -1,5 +1,5 @@
-# sef-github-leaderboad
-[https://sefglobal.org/github-leaderboard](https://sefglobal.org/github-leaderboard)
+# sef-github-leaderboard
+[https://sefglobal.org/github-leaderboard](http://sef-github-leaderboard.herokuapp.com//)
 
 # Setup Development Environment
 
