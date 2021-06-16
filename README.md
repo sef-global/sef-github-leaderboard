@@ -1,5 +1,5 @@
 # sef-github-leaderboard
-[https://sefglobal.org/github-leaderboard](http://sef-github-leaderboard.herokuapp.com//)
+[https://sefglobal.org/github-leaderboard](http://sef-github-leaderboard.herokuapp.com)
 
 # Setup Development Environment
 
@@ -101,5 +101,4 @@ If you need to test with dummy data, you can import the the database located in 
 ```
 mysql -u user_name -p database_name < scripts/dummy_data.sql
 ```
-
 
